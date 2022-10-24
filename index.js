@@ -26,12 +26,10 @@ app.get('/api/tbl_hola_mundo/',   (req, res)=>{
 
 app.post('/api/tbl_hola_mundo/',  async (req, res)=>{
     
-
     const valoresQuery = [
             req.body.descripcion, 
             req.body.fecha_creacion, 
             req.body.isactive]; 
-
 
     let sqltmp = " insert into bicc.tbl_hola_mundo_frlopez "+
                  " (id, descripcion, fecha_creacion, isactive) " +
@@ -47,12 +45,63 @@ app.post('/api/tbl_hola_mundo/',  async (req, res)=>{
         res.json(objInserted);
     } )
     .catch((error) =>{
-        console.log("hay un error");
-        console.log(error);
+        res.json(error);
     } );
 
 });
 
+
+app.put('/api/tbl_hola_mundo/:id',  async (req, res)=>{
+    
+    const valoresQuery = [
+            req.body.descripcion, 
+            req.body.fecha_creacion, 
+            req.body.isactive, 
+            req.params.id
+        ]; 
+
+    console.log(valoresQuery);
+
+    let sqltmp = " update bicc.tbl_hola_mundo_frlopez "+
+                 " set descripcion = $1, fecha_creacion = $2, isactive = $3 "+
+                 " where id = $4 ";
+
+    db.result(sqltmp, valoresQuery, r=> r.rowCount)
+    .then ( data =>{
+        const objectModified = { id : req.params.id, 
+                              affectedRows: data };
+        res.json(objectModified);
+    } )
+    .catch((error) =>{
+        
+        res.json(error);
+    } );
+
+});
+
+app.delete('/api/tbl_hola_mundo/:id',  async (req, res)=>{
+    
+    const valoresQuery = [
+            req.params.id
+        ]; 
+
+    console.log(valoresQuery);
+
+    let sqltmp = " delete from bicc.tbl_hola_mundo_frlopez "+
+                 " where id = $1 ";
+
+    db.result(sqltmp, valoresQuery, r=> r.rowCount)
+    .then ( data =>{
+        const objectModified = { id : req.params.id, 
+                              affectedRows: data };
+        res.json(objectModified);
+    } )
+    .catch((error) =>{
+        
+        res.json(error);
+    } );
+
+});
 
 
 app.listen(8080);
