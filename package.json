@@ -1,0 +1,27 @@
+{
+  "name": "capacitacionexpress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "start": "nodemon index.js" 
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frlopez88/CapacitacionExpress.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frlopez88/CapacitacionExpress/issues"
+  },
+  "homepage": "https://github.com/frlopez88/CapacitacionExpress#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20",
+    "pg": "^8.8.0",
+    "pg-promise": "^10.12.1"
+  }
+}
