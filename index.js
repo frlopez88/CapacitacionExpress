@@ -70,7 +70,8 @@ app.put('/api/tbl_hola_mundo/:id',  async (req, res)=>{
     .then ( data =>{
         const objectModified = { id : req.params.id, 
                               affectedRows: data };
-        res.json(objectModified);
+        res.json(objectModified
+            );
     } )
     .catch((error) =>{
         
