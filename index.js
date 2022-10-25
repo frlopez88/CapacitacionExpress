@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const db = require ('./db');
+const crypto = require('crypto');
+
 
 app.use(express.json());
 
@@ -26,7 +28,11 @@ app.get('/api/tbl_hola_mundo/',   (req, res)=>{
 
 app.post('/api/tbl_hola_mundo/',  async (req, res)=>{
     
+    let uuid= crypto.randomUUID();
+    
+
     const valoresQuery = [
+            uuid ,
             req.body.descripcion, 
             req.body.fecha_creacion, 
             req.body.isactive]; 
@@ -34,7 +40,7 @@ app.post('/api/tbl_hola_mundo/',  async (req, res)=>{
     let sqltmp = " insert into bicc.tbl_hola_mundo_frlopez "+
                  " (id, descripcion, fecha_creacion, isactive) " +
                  " values "+
-                 " ( public.uuid_generate_v1() , $1, $2, $3 ) RETURNING id ";
+                 " ( $1, $2, $3, $4 ) RETURNING id ";
 
     db.one(sqltmp, valoresQuery, event => event.id)
     .then ( data =>{
